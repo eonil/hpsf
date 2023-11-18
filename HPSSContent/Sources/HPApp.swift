@@ -1,17 +1,19 @@
-//
-//  HPSSApp.swift
-//  HPSS
-//
-//  Created by Hoon H. on 11/17/23.
-//
-
 import SwiftUI
 
 @main
 struct HPApp: App {
+    init() {
+        Task(operation: runKernel)
+    }
     var body: some Scene {
         WindowGroup {
-            HPContentView()
+            HPRootView()
         }
     }
+}
+
+@Sendable
+@HPCoreRun
+private func runKernel() async {
+    await HPKernel.shared.run()
 }
