@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:HPSFSample">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/Dev/work/product/hpsf/HPSFSampleApp/HPSFSampleApp.xcodeproj">
+   </FileRef>
+</Workspace>

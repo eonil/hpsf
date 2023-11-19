@@ -2,6 +2,10 @@ HPSS
 ====
 Eonil.
 
+HPSF stands for "High Performance SwiftUI Foundation".
+This is essentially a collection of code to support making high performance apps UI using SwiftUI.
+
+
 HPSS stands for "High Performance SwiftUI Samples".
 This is essentially a sample app code which shows how to make high performance apps UI using SwiftUI.
 
