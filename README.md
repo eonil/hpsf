@@ -1,4 +1,4 @@
-HPSS
+HPSF
 ====
 Eonil.
 
@@ -6,12 +6,10 @@ HPSF stands for "High Performance SwiftUI Foundation".
 This is essentially a collection of code to support making high performance apps UI using SwiftUI.
 
 
-HPSS stands for "High Performance SwiftUI Samples".
-This is essentially a sample app code which shows how to make high performance apps UI using SwiftUI.
-
 
 Problems & Solutions
---------------------
+-----------------------------
+
 ### Slow list rendering.
 - Problem.
     - `LazyVStack` doesn't work as expected. It instantiates all items at once.
@@ -26,7 +24,6 @@ Problems & Solutions
     - Use "timeline"-based rendering.
         - Track & record changes precisely.
         - Pass "timeline" as-is to UI, so can be rendered optimally.
-    
 
 ### Rendering in invisible state.
 - Problem.
@@ -36,7 +33,6 @@ Problems & Solutions
     - Define complete navigation state and render only it matches.
     - Define a pattern/convention to make this easy.
     - Define a `-PageView` type which helps this.
-        
 
 ### All "pages" are re-rendered for all repo changes.
 - Problem.
@@ -54,7 +50,13 @@ Problems & Solutions
         - Also, nested pages under hidden tab won't even get checked.
         - At last, only root tabs will be triggered for re-rendering. 
 
-### Simply too many text rendering.
+
+
+
+Potential Problems & Solutions
+------------------------------
+        
+### Simply too much text rendering.
 - Problem.
     - Text rendering is one of major CPU consumption point.
     - If we have too many thing to render, there's no way work-around.
