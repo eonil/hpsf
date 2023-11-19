@@ -37,7 +37,9 @@ Problems & Solutions
 - Solution.
     - Define complete navigation state and render only it matches.
     - Define a pattern/convention to make this easy.
-    - Define a `-PageView` type which helps this.
+        - Use `HPConditionallyUpdatedView`.
+            - This suspends/resumes view update according to the condition.
+            - It does not erase existing view-graph. All view-states will be kept and remain as-is. 
 
 ### All "pages" are re-rendered for all repo changes.
 - Problem.
