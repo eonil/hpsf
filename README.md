@@ -19,6 +19,11 @@ Problems & Solutions
     - iOS 15 does not have proper support.
         - Use hack (`UIHostingController`) for older versions.
         - Use proper solution for iOS 17+.
+    - iOS 17 `SwiftUI.ScrollView` scroll is unstable if content-size changes.
+        - This also happens in `UIScrollView`.
+        - Solution is recovering scroll position after resizing content-size.
+        - But, this is unusable with `SwiftUI.ScrollView`.
+        - Just use iOS 15 based solution until we get a better solution for this.
     - Avoid re-rendering by tracking old cell indices.
         - This is still best effort level.
     - Use "timeline"-based rendering.
