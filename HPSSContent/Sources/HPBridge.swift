@@ -1,5 +1,5 @@
 struct HPBridge {
-    var queue = noop as (HPCommand) -> Void
-    var data = HPRepo()
+    var queue = HP.noop as (HPAction) -> Void
+    var data = HPRendition()
 }
 

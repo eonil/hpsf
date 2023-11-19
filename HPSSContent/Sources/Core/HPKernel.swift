@@ -14,8 +14,8 @@ struct HPKernel: ~Copyable {
         }
     }
     
-    mutating func apply(_ action: HPAction) {
-        switch action {
+    mutating func apply(_ command: HPCommand) {
+        switch command {
         case .boot: break
         default: break
         }
@@ -25,7 +25,7 @@ struct HPKernel: ~Copyable {
         try? await Task.hpSleep(for: 0.1)
 //        try? await Task.sleep(for: .milliseconds(100))
     }
-    func snapshot() -> HPRendition {
+    func snapshot() -> HPRepo {
         // TODO: Wait for semaphore and return updated repo.
         repo
     }
