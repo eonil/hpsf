@@ -7,7 +7,7 @@ import SwiftUI
 ///   - Provide different key to redraw view.
 ///
 struct HPLazyListView<Source, ItemView: View>: View where Source: RandomAccessCollection, Source.Index == Int, Source.Element: Hashable {
-    init(data: Source, cellHeight: CGFloat, itemContent: @escaping (Source.Element) -> ItemView) {
+    init(data: Source, cellHeight: CGFloat, @ViewBuilder itemContent: @escaping (Source.Element) -> ItemView) {
         spec = Spec(data: data, cellHeight: cellHeight, itemContent: itemContent)
     }
     

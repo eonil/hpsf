@@ -12,7 +12,7 @@ struct HPCurrencyDetail {
 
 typealias HPPSwapSymbol = HPSymbol
 
-struct HPPSwapDetail {
+struct HPPSwapDetail: Equatable {
     var symbol: HPPSwapSymbol
     var humanReadableName: String
     

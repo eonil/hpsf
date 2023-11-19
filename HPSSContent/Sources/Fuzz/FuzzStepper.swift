@@ -127,7 +127,8 @@ private extension HPRepo {
             detail.lastPrice = .random(in: 0...1_000_000)
             market.pswapTable[symbol] = detail
         }
-        market.pswapSymbolIndex = BTSet(market.pswapTable.keys)
+        
+        memo.$marketPSwapSymbolDisplayOrder.reset(with: BTList(Set(market.pswapTable.keys)), on: .now())
     }
 }
 

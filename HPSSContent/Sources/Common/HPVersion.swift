@@ -1,5 +1,11 @@
 typealias HPVersion = Int64
 
+extension HPVersion {
+    func revision() -> Self {
+        self + 1
+    }
+}
+
 @propertyWrapper
 struct HPVersioned<T> {
     private var content: T

@@ -8,17 +8,23 @@ This is essentially a sample app code which shows how to make high performance a
 
 Problems & Solutions
 --------------------
-Slow list rendering.
+### Slow list rendering.
 - Problem.
     - `LazyVStack` doesn't work as expected. It instantiates all items at once.
+    - Cells are always re-rendered.
 - Solution.
     - Implement our own list renderer.
     - iOS 15 does not have proper support.
         - Use hack (`UIHostingController`) for older versions.
         - Use proper solution for iOS 17+.
+    - Avoid re-rendering by tracking old cell indices.
+        - This is still best effort level.
+    - Use "timeline"-based rendering.
+        - Track & record changes precisely.
+        - Pass "timeline" as-is to UI, so can be rendered optimally.
     
 
-Rendering in invisible state.
+### Rendering in invisible state.
 - Problem.
     - In major navigation state, only one or two "pages" (a view covering whole screen) are actively visible.
     - All other pages are hidden by other pages.
@@ -28,7 +34,7 @@ Rendering in invisible state.
     - Define a `-PageView` type which helps this.
         
 
-All "pages" are re-rendered for all repo changes.
+### All "pages" are re-rendered for all repo changes.
 - Problem.
     - We have hundreds of pages.
     - They will be re-rendered for every kind of changes. 10 times per second at worst.
@@ -44,7 +50,7 @@ All "pages" are re-rendered for all repo changes.
         - Also, nested pages under hidden tab won't even get checked.
         - At last, only root tabs will be triggered for re-rendering. 
 
-Simply too many text rendering.
+### Simply too many text rendering.
 - Problem.
     - Text rendering is one of major CPU consumption point.
     - If we have too many thing to render, there's no way work-around.
