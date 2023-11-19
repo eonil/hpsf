@@ -5,20 +5,25 @@ extension HPLazyListView {
     struct Since_iOS17: View {
         var spec: Spec
         var body: some View {
-            ScrollView {
-                GeometryReader { geometry in
-                    if let scrollBounds = geometry.bounds(of: .scrollView) {
-                        let range = findVisibleCellIndices(in: scrollBounds)
-                        ForEach(range, id: \.self) { i in
-                            let item = spec.data[i]
-                            let cell = spec.itemContent(item)
-                            cell.frame(width: 100, height: spec.cellHeight, alignment: .topLeading)
-                                .offset(x: 0, y: CGFloat(i) * spec.cellHeight)
+            ZStack {
+                Color.clear
+                ScrollView {
+                    let totalHeight = spec.cellHeight * CGFloat(spec.data.count)
+                    let _ = print(totalHeight)
+                    GeometryReader { geometry in
+                        if let scrollBounds = geometry.bounds(of: .scrollView) {
+                            let range = findVisibleCellIndices(in: scrollBounds)
+                            ForEach(range, id: \.self) { i in
+                                let item = spec.data[i]
+                                let cell = spec.itemContent(item)
+                                cell.frame(width: 100, height: spec.cellHeight, alignment: .topLeading)
+                                    .offset(x: 0, y: CGFloat(i) * spec.cellHeight)
+                            }
                         }
                     }
+                    .frame(width: 300, height: 30000, alignment: .topLeading)
+                    .fixedSize(horizontal: false, vertical: true)
                 }
-                .frame(width: 300, height: 3000, alignment: .topLeading)
-                .fixedSize()
             }
         }
         
