@@ -4,7 +4,12 @@ import UIKit
 
 extension HPLazyListView {
     /// Lazy-list implementation using `UIKit`.
-    struct UIKitMixed: View {
+    ///
+    /// Known Issues
+    /// - No *explicit identity* support. Only *structural ideneity* is supported.
+    /// - **Do not assign an explicit identity.** It may cause worse rendering performance.
+    @available(*, deprecated, message: "Use `UIKitMixed2`.")
+    struct UIKitMixed1: View {
         var spec: Spec
         var body: some View {
             Rep(spec: spec)

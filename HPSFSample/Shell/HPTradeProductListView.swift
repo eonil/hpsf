@@ -5,7 +5,7 @@ struct HPTradeProductListPage: View {
     var bridge: HPBridge
     var body: some View {
         HPConditionallyUpdatedView(condition: bridge.data.navigation.selectedTab == .trade) {
-            let _ = print("render: \(#fileID)")
+//            let _ = print("render: \(#fileID)")
             let symbols = bridge.data.repo.memo.$marketPSwapSymbolDisplayOrder.timeline.transactions.last!.point.snapshot
             HPVersionBasedEquatableView(version: bridge.data.repo.market.$pswapTable.version) {
                 HPLazyListView(data: symbols, cellHeight: 50) { symbol in
@@ -44,7 +44,7 @@ struct HPTradeProductListPage: View {
         }
         
         var body: some View {
-            let _ = print("Trade tab item cell rendering triggered!")
+//            let _ = print("Trade tab item cell rendering triggered!")
 //            ForEach(0..<100) { i in
 //                HPText(data.symbol.code, width: 100, height: 50)
 //            }

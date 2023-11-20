@@ -20,7 +20,7 @@ public extension HPLazyListView {
         spec = Spec(data: data, cellHeight: cellHeight, itemContent: itemContent)
     }
     var body: some View {
-        UIKitMixed(spec: spec)
+        UIKitMixed2(spec: spec)
 //        if #available(iOS 17, *) {
 //            PureSwiftUI(spec: spec)
 //        }
