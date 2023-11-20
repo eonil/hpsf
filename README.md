@@ -57,8 +57,14 @@ Problems & Solutions
         - Also, nested pages under hidden tab won't even get checked.
         - At last, only root tabs will be triggered for re-rendering. 
 
-
-
+### We have to trigger re-rendering even for small portion of view changes.
+- Problem.
+    - In many cases, view is built with complicated layout and only 1 or 2 leaf elements changes.
+    - But to trigger the change, we have to trigger re-rendering of whole subtree.
+- Solution.
+    - Divide static part and dynamic part in a view.
+    - Make static part static by taking no parameter.
+    - Overlay dynamic part over the static view. Tune layout precisely to make it positioned properly.
 
 Potential Problems & Solutions
 ------------------------------

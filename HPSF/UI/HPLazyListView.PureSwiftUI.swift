@@ -2,7 +2,7 @@ import SwiftUI
 
 @available(iOS 17, *)
 extension HPLazyListView {
-    struct Since_iOS17: View {
+    struct PureSwiftUI: View {
         var spec: Spec
         var body: some View {
             ZStack {

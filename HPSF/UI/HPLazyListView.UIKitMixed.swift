@@ -1,10 +1,10 @@
 import SwiftUI
-
 #if canImport(UIKit)
 import UIKit
 
 extension HPLazyListView {
-    struct Pre_iOS17: View {
+    /// Lazy-list implementation using `UIKit`.
+    struct UIKitMixed: View {
         var spec: Spec
         var body: some View {
             Rep(spec: spec)
