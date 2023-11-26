@@ -1,5 +1,5 @@
 import SwiftUI
-import HPSF
+import HPSFImpl1
 
 struct HPTradeView: View {
     var bridge: HPBridge

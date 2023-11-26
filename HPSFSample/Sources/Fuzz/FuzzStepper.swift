@@ -1,4 +1,4 @@
-import HPSF
+import HPSFImpl1
 
 @HPCoreRun
 struct FuzzStepper {
@@ -76,7 +76,7 @@ private extension HPRepo {
             let n = Int.random(in: changeCountRange)
             let n1 = max(n, market.currencyTable.count - countRange.lowerBound)
             for _ in 0..<n1 {
-                if let symbol = market.currencyTable.randomElement()?.0 {
+                if let symbol = market.currencyTable.randomElement()?.key {
                     market.currencyTable[symbol] = nil
                 }
             }

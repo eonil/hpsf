@@ -4,6 +4,7 @@
 public struct HPTable<Key, Value>: Sequence where Key: Comparable {
     private var storage = Storage()
     private typealias Storage = BTMap<Key, Value>
+    public init() {}
 }
 
 public extension HPTable {
@@ -33,6 +34,10 @@ public extension HPTable {
     }
     var values: some Sequence<Value> {
         storage.values
+    }
+    
+    func randomElement() -> Element? {
+        storage.randomElement()
     }
 }
 

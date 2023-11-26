@@ -1,4 +1,4 @@
-import HPSF
+import HPSFImpl1
 
 @HPCoreRun
 struct HPKernel: ~Copyable {

@@ -1,17 +1,17 @@
-import HPSF
+import HPSFImpl1
 
 struct HPRepo {
     @HPVersioned var market = Market()
     struct Market {
-        @HPVersioned var currencyTable = BTMap<HPCurrencySymbol, HPCurrencyDetail>()
-        @HPVersioned var pswapTable = BTMap<HPPSwapSymbol, HPPSwapDetail>()
+        @HPVersioned var currencyTable = HPTable<HPCurrencySymbol, HPCurrencyDetail>()
+        @HPVersioned var pswapTable = HPTable<HPPSwapSymbol, HPPSwapDetail>()
         
     }
     
     @HPVersioned var user = User()
     struct User {
-        @HPVersioned var walletTable = BTMap<HPCurrencySymbol, HPDecimal>()
-        @HPVersioned var positionTable = BTMap<HPPSwapSymbol, HPDecimal>()
+        @HPVersioned var walletTable = HPTable<HPCurrencySymbol, HPDecimal>()
+        @HPVersioned var positionTable = HPTable<HPPSwapSymbol, HPDecimal>()
     }
 
     /// Pre-calculated & cached values that are expensive to recalculate.

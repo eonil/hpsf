@@ -20,7 +20,7 @@ let package = Package(
         .target(
             name: "HPSFSample",
             dependencies: [
-                .product(name: "HPSFImpl1", package: "HPSFImpl1", moduleAliases: ["HPSFImpl1": "HPSF"]),
+                .product(name: "HPSFImpl1", package: "HPSFImpl1"/* , moduleAliases: ["HPSFImpl1": "HPSF"] */),
             ]),
     ]
 )
