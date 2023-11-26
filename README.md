@@ -6,13 +6,15 @@ HPSF stands for "High Performance SwiftUI Foundation".
 This is essentially a collection of code to support making high performance apps UI using SwiftUI.
 
 
+File Structure
+--------------
+- Root package `HPSF` is an aggregation-only package. (no code, re-export only)
+- Subpackage `HPSFImpl1` contains all code there.
+- Subpacakge `HPSFSample` contains app-level sample there.
+- Subproject `HPSFSampleApp` contains Xcode project for app-package there.
+    
 To Do
 -----
-- Refactor structure.
-    - Make root package `HPSF` as an aggregation-only package. (no code, re-export only)
-    - Make a subpackage `HPSFImpl1` and place all code there.
-    - Make a subpacakge `HPSFSample` and place app-level sample there.
-    - Make a subproject `HPSFSampleApp` and place Xcode project for app-package there.  
 - Make `HPLazyVList`.
     - No scroll view. This is just a fixed-sized view for certain data input.
     - Designed to be used with contained in a scroll-view.
