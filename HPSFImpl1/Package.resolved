@@ -1,0 +1,13 @@
+{
+  "pins" : [
+    {
+      "identity" : "btree",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/attaswift/BTree",
+      "state" : {
+        "revision" : "407fda73e18cc9df9130453ee36f73408c22408f"
+      }
+    }
+  ],
+  "version" : 2
+}

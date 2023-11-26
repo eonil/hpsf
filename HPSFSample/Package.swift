@@ -14,9 +14,13 @@ let package = Package(
         .library(name: "HPSFSample", targets: ["HPSFSample"]),
     ],
     dependencies: [
-        .package(path: "../"),
+        .package(path: "../HPSFImpl1"),
     ],
     targets: [
-        .target(name: "HPSFSample", dependencies: [.product(name: "HPSF", package: "HPSF")], path: "."),
+        .target(
+            name: "HPSFSample",
+            dependencies: [
+                .product(name: "HPSFImpl1", package: "HPSFImpl1", moduleAliases: ["HPSFImpl1": "HPSF"]),
+            ]),
     ]
 )

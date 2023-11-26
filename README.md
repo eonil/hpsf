@@ -10,9 +10,9 @@ To Do
 -----
 - Refactor structure.
     - Make root package `HPSF` as an aggregation-only package. (no code, re-export only)
-    - Make a subpackage `HPSFImplementation` and place all code there.
-    - Make a subpacakge `HPSFSampleApp` and place app-level sample there.
-    - Make a subproject `HPSFSample` and place Xcode project for app-package there.  
+    - Make a subpackage `HPSFImpl1` and place all code there.
+    - Make a subpacakge `HPSFSample` and place app-level sample there.
+    - Make a subproject `HPSFSampleApp` and place Xcode project for app-package there.  
 - Make `HPLazyVList`.
     - No scroll view. This is just a fixed-sized view for certain data input.
     - Designed to be used with contained in a scroll-view.

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D71BEC912B0A0E9C00E41DF7 /* HPSFSample in Frameworks */ = {isa = PBXBuildFile; productRef = D71BEC902B0A0E9C00E41DF7 /* HPSFSample */; };
+		D70ECB642B13965F00C1AC71 /* HPSFSample in Frameworks */ = {isa = PBXBuildFile; productRef = D70ECB632B13965F00C1AC71 /* HPSFSample */; };
 		D7C072082B07D8C3008DFD79 /* Hold.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C072072B07D8C3008DFD79 /* Hold.swift */; };
 		D7E619232B07C547001DF831 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7E619222B07C547001DF831 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -23,7 +23,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D71BEC912B0A0E9C00E41DF7 /* HPSFSample in Frameworks */,
+				D70ECB642B13965F00C1AC71 /* HPSFSample in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +80,7 @@
 			);
 			name = HPSFSampleApp;
 			packageProductDependencies = (
-				D71BEC902B0A0E9C00E41DF7 /* HPSFSample */,
+				D70ECB632B13965F00C1AC71 /* HPSFSample */,
 			);
 			productName = HPSS;
 			productReference = D7E6191B2B07C545001DF831 /* HPSFSampleApp.app */;
@@ -345,7 +345,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D71BEC902B0A0E9C00E41DF7 /* HPSFSample */ = {
+		D70ECB632B13965F00C1AC71 /* HPSFSample */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HPSFSample;
 		};
