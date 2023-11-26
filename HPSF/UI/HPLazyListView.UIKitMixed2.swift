@@ -4,9 +4,6 @@ import UIKit
 
 extension HPLazyListView {
     /// Lazy-list implementation using `UIKit`.
-    ///
-    /// Known Issues
-    /// - No *explicit identity* support. Only *structural ideneity* is supported.
     struct UIKitMixed2: View {
         var spec: Spec
         var body: some View {
@@ -53,21 +50,21 @@ extension HPLazyListView {
                 }
                 
                 let scrollView = UIScrollView()
-                var visibleItemHostingControllerTable = [Source.Element: UIHostingController<ItemView>]()
+                var visibleItemHostingControllerTable = [Source.Element: UIHostingController<CellContent>]()
                 private func placeCells() {
                     let h = spec.cellHeight * CGFloat(spec.data.count)
                     let r = findVisibleCellIndices()
                     let oldTable = visibleItemHostingControllerTable
-                    var newTable = [Source.Element: UIHostingController<ItemView>]()
+                    var newTable = [Source.Element: UIHostingController<CellContent>]()
                     for i in r {
                         let item = spec.data[i]
                         if let cellVC = visibleItemHostingControllerTable[item] {
                             assert(cellVC.parent != nil)
                             newTable[item] = cellVC
-                            cellVC.rootView = spec.itemContent(item)
+                            cellVC.rootView = spec.cellContent(item)
                         }
                         else {
-                            let cellVC = UIHostingController(rootView: spec.itemContent(item))
+                            let cellVC = UIHostingController(rootView: spec.cellContent(item))
                             addChild(cellVC)
                             scrollView.addSubview(cellVC.view)
                             cellVC.didMove(toParent: self)

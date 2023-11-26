@@ -15,7 +15,7 @@ extension HPLazyListView {
                             let range = findVisibleCellIndices(in: scrollBounds)
                             ForEach(range, id: \.self) { i in
                                 let item = spec.data[i]
-                                let cell = spec.itemContent(item)
+                                let cell = spec.cellContent(item)
                                 cell.frame(width: 100, height: spec.cellHeight, alignment: .topLeading)
                                     .offset(x: 0, y: CGFloat(i) * spec.cellHeight)
                             }

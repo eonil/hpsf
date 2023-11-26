@@ -5,6 +5,6 @@
       location = "group:HPSFSample">
    </FileRef>
    <FileRef
-      location = "group:/Users/Dev/work/product/hpsf/HPSFSampleApp/HPSFSampleApp.xcodeproj">
+      location = "group:HPSFSampleApp/HPSFSampleApp.xcodeproj">
    </FileRef>
 </Workspace>

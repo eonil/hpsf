@@ -8,15 +8,40 @@ struct HPTradeProductListPage: View {
 //            let _ = print("render: \(#fileID)")
             let symbols = bridge.data.repo.memo.$marketPSwapSymbolDisplayOrder.timeline.transactions.last!.point.snapshot
             HPVersionBasedEquatableView(version: bridge.data.repo.market.$pswapTable.version) {
-                HPLazyListView(data: symbols, cellHeight: 50) { symbol in
-                    if let data = bridge.data.repo.market.pswapTable[symbol] {
-                        let model = Cell.Model(code: data.symbol.code)
-                        EquatableView(content: Cell(
-                            bridge: bridge,
-                            model: model,
-                            action: HP.bind(pushOrderForm(with:), data.symbol)))
-                    }
-                }
+//                ScrollView(.vertical) {
+//                    LazyVStack(alignment: .leading) {
+////                        topShelfRow(text: "A")
+////                        topShelfRow(text: "B")
+////                        topShelfRow(text: "C")
+////                        topShelfRow(text: "D")
+////                        topShelfRow(text: "E")
+////                        topShelfRow(text: "F")
+////                        topShelfRow(text: "G")
+////                        topShelfRow(text: "H")
+//                        
+//                    }
+//                    
+//                }
+                mainList(symbols: symbols)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func topShelfRow(text: String) -> some View {
+        let _ = print(#function + " " + text)
+        Text(text).font(.system(size: 100))
+    }
+    
+    @ViewBuilder
+    private func mainList<C>(symbols: C) -> some View where C: RandomAccessCollection, C.Element == HPPSwapSymbol, C.Index == Int {
+        HPLazyListView(data: symbols, cellHeight: 50) { symbol in
+            if let data = bridge.data.repo.market.pswapTable[symbol] {
+                let model = Cell.Model(code: data.symbol.code)
+                EquatableView(content: Cell(
+                    bridge: bridge,
+                    model: model,
+                    action: HP.bind(pushOrderForm(with:), data.symbol)))
             }
         }
     }

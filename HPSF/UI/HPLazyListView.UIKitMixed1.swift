@@ -14,7 +14,7 @@ extension HPLazyListView {
         var body: some View {
             Rep(spec: spec)
         }
-        
+
         struct Rep: UIViewControllerRepresentable {
             var spec: Spec
             func makeUIViewController(context: Context) -> Impl {
@@ -31,7 +31,7 @@ extension HPLazyListView {
                     }
                 }
                 let scrollView = UIScrollView()
-                var itemHostingControllers = [UIHostingController<ItemView?>]()
+                var itemHostingControllers = [UIHostingController<CellContent?>]()
                 
                 init(spec: Spec) {
                     self.spec = spec
@@ -61,7 +61,7 @@ extension HPLazyListView {
                     let r = findVisibleCellIndices()
                     /// Refit to new cell count.
                     while itemHostingControllers.count < r.count {
-                        let h = UIHostingController(rootView: nil as ItemView?)
+                        let h = UIHostingController(rootView: nil as CellContent?)
                         addChild(h)
                         scrollView.addSubview(h.view)
                         h.didMove(toParent: self)
@@ -83,7 +83,7 @@ extension HPLazyListView {
                     }
                     for (i,n) in findVisibleCellIndices().enumerated() {
                         let h = itemHostingControllers[i]
-                        h.rootView = spec.itemContent(spec.data[n])
+                        h.rootView = spec.cellContent(spec.data[n])
                         h.view.frame = CGRect(x: 0, y: CGFloat(n) * 50, width: 100, height: 50)
                     }
                 }

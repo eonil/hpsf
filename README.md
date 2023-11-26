@@ -6,6 +6,21 @@ HPSF stands for "High Performance SwiftUI Foundation".
 This is essentially a collection of code to support making high performance apps UI using SwiftUI.
 
 
+To Do
+-----
+- Refactor structure.
+    - Make root package `HPSF` as an aggregation-only package. (no code, re-export only)
+    - Make a subpackage `HPSFImplementation` and place all code there.
+    - Make a subpacakge `HPSFSampleApp` and place app-level sample there.
+    - Make a subproject `HPSFSample` and place Xcode project for app-package there.  
+- Make `HPLazyVList`.
+    - No scroll view. This is just a fixed-sized view for certain data input.
+    - Designed to be used with contained in a scroll-view.
+    - Provides Viewport bounding box culling.
+    - Provides container bounding box culling. 
+- Make test suite.
+    - Which collects call count to view-graph reconstruction (`body`) and checks certain call counts.
+
 
 Problems & Solutions
 -----------------------------
@@ -29,6 +44,13 @@ Problems & Solutions
     - Use "timeline"-based rendering.
         - Track & record changes precisely.
         - Pass "timeline" as-is to UI, so can be rendered optimally.
+
+### Lack of paged scroll-view.
+- Problem.
+    - Scroll-view paging is lacked in iOS 15.
+    - People tend to reimplement the functionality or try hacks such as introspection.
+- Solution.
+    - Implement dedicated paged-scroll-view.
 
 ### Rendering in invisible state.
 - Problem.
@@ -131,3 +153,15 @@ Potential Problems & Solutions
         - Number representation will be the best fit for this.
         - By the way, I'm suspicious how much this would be effective.
             - Sub-piexl level layout is still performed. We can't avoid re-rendering. 
+
+
+Discarded Solutions
+-------------------
+- Static view.
+    - A container view never updates contained views.
+    - This is not necessary as this is default behavior of SwiftUI.
+- Size-predefined vertical stack view.
+    - No good way to provide different type of content segment views.
+    - It's essentially same with setting fixed sizes to all content view in a `VStack`.
+    - SwiftUI is known to perform viewport culling by default.
+        - Still may involve layout recalculation, but it can be avoided by providing fixed sizes to all content views.     

@@ -1,10 +1,10 @@
 import SwiftUI
 
 /// An `EquatableView`, but treats contents equal if provided versions are equal.
-public struct HPVersionBasedEquatableView<Content: View>: View {
-    private var determinant: DeterminantView
-    private struct DeterminantView: View, Equatable {
-        var version: HPVersion
+public struct HPVersionBasedEquatableView<Version: Equatable, Content: View>: View {
+    private var determinant: Determinant
+    private struct Determinant: View, Equatable {
+        var version: Version
         var content: () -> Content
         var body: some View {
             content()
@@ -16,8 +16,8 @@ public struct HPVersionBasedEquatableView<Content: View>: View {
 }
 
 public extension HPVersionBasedEquatableView {
-    init(version: HPVersion, @ViewBuilder content: @escaping () -> Content) {
-        determinant = DeterminantView(version: version, content: content)
+    init(version: Version, @ViewBuilder content: @escaping () -> Content) {
+        determinant = Determinant(version: version, content: content)
     }
     var body: some View {
         EquatableView(content: determinant)
