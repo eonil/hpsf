@@ -1,11 +1,15 @@
 import SwiftUI
+import UIKit
 
 /// A lazily rendered list view.
 /// - Fixed cell height.
 /// - Item view content is derived from source item element.
 /// - Source item element is `Hashable`. This view does not redraw items for same source element.
 ///   - Provide different key to redraw view.
-/// - Cell-views
+///
+/// - Note:
+///     Due to implementation details, this must be contained in a `HPScrollView` or `HPFixedSizeScrollView`.
+///     This won't work properly if contained in any other kind of scroll-view implementation.
 ///
 public struct HPLazyVList<Source, CellContent: View>: View where Source: RandomAccessCollection, Source.Index == Int, Source.Element: Hashable {
     var spec: Spec
@@ -25,12 +29,7 @@ public extension HPLazyVList {
     }
 }
 
-
-import SwiftUI
-#if canImport(UIKit)
-import UIKit
-
-extension HPLazyVList {
+private extension HPLazyVList {
     struct Rep: UIViewControllerRepresentable {
         var spec: Spec
         func makeUIViewController(context: Context) -> Impl {
@@ -40,14 +39,14 @@ extension HPLazyVList {
             controller.spec = spec
         }
         
-        final class Impl: UIViewController, UIScrollViewDelegate {
+        final class Impl: UIViewController {
             init(spec: Spec) {
                 self.spec = spec
                 super.init(nibName: nil, bundle: nil)
-                view.addSubview(scrollView)
-                scrollView.bounces = true
-                scrollView.alwaysBounceVertical = true
-                scrollView.delegate = self
+                railView.onScroll = { [weak self] in self?.placeCells() }
+                railView.spec = spec
+                railView.invalidateIntrinsicContentSize()
+                view.setNeedsLayout()
             }
             @available(*, unavailable)
             required init?(coder: NSCoder) {
@@ -55,22 +54,26 @@ extension HPLazyVList {
             }
             var spec: Spec {
                 didSet {
+                    railView.spec = spec
+                    railView.invalidateIntrinsicContentSize()
                     placeCells()
                 }
             }
             
+            var railView: RailView {
+                view as! RailView
+            }
+            override func loadView() {
+                view = RailView(spec: spec)
+            }
             override func viewDidLayoutSubviews() {
                 super.viewDidLayoutSubviews()
-                if scrollView.frame != view.bounds {
-                    scrollView.frame = view.bounds
+                if railView.frame != view.bounds {
+                    railView.frame = view.bounds
                     placeCells()
                 }
             }
-            func scrollViewDidScroll(_ scrollView: UIScrollView) {
-                placeCells()
-            }
             
-            let scrollView = UIScrollView()
             var visibleItemHostingControllerTable = [Source.Element: UIHostingController<CellContent>]()
             private func placeCells() {
                 let h = spec.cellHeight * CGFloat(spec.data.count)
@@ -87,7 +90,7 @@ extension HPLazyVList {
                     else {
                         let cellVC = UIHostingController(rootView: spec.cellContent(item))
                         addChild(cellVC)
-                        scrollView.addSubview(cellVC.view)
+                        railView.addSubview(cellVC.view)
                         cellVC.didMove(toParent: self)
                         newTable[item] = cellVC
                     }
@@ -101,11 +104,6 @@ extension HPLazyVList {
                 }
 
                 /// Layout.
-                if scrollView.contentSize.height != h {
-                    let y = scrollView.contentOffset.y
-                    scrollView.contentSize.height = h
-                    scrollView.contentOffset.y = y
-                }
                 for i in r {
                     let item = spec.data[i]
                     assert(newTable[item] != nil)
@@ -118,14 +116,67 @@ extension HPLazyVList {
             }
             
             private func findVisibleCellIndices() -> Range<Int> {
-                let a = Int(floor(scrollView.contentOffset.y / spec.cellHeight))
-                let b = a + Int(ceil(scrollView.visibleSize.height / spec.cellHeight)) + 1
+                guard let scrollHost = HPBroadcastingScroll.findNearestOverSuperviewTree(in: view.superview) else { return 0..<0 }
+                let a = Int(floor(scrollHost.hp_contentOffset.y / spec.cellHeight))
+                let b = a + Int(ceil(scrollHost.hp_visibleSize.height / spec.cellHeight)) + 1
+//                let a = Int(floor(railView.bounds.minY / spec.cellHeight))
+//                let b = Int(ceil(railView.bounds.maxY / spec.cellHeight)) + 1
                 let a1 = max(a, 0)
                 let b1 = min(b, spec.data.count)
                 let b2 = max(a1, b1)
                 return a1..<b2
             }
+            
+//            private func boundsOfVisiblePartOnScreen() -> CGRect {
+//                guard let window = view.window else { return .zero }
+//                let frameInWindow =  window.convert(window.screen.bounds, from: nil)
+//                screen.bounds
+//            }
         }
     }
+    
+    final class RailView: UIView {
+        var spec: Spec
+        var onScroll = HP.noop
+        init(spec: Spec) {
+            self.spec = spec
+            super.init(frame: .zero)
+        }
+        @available(*, unavailable)
+        required init?(coder: NSCoder) {
+            fatalError("Unsupported.")
+        }
+        override var intrinsicContentSize: CGSize {
+            return CGSize(
+                width: UIView.noIntrinsicMetric,
+                height: spec.cellHeight * CGFloat(spec.data.count))
+        }
+        
+        override func willMove(toSuperview newSuperview: UIView?) {
+            super.willMove(toSuperview: newSuperview)
+            uninstall()
+        }
+        override func didMoveToSuperview() {
+            super.didMoveToSuperview()
+            install()
+        }
+        deinit {
+            uninstall()
+        }
+        
+        private func install() {
+            let scrollHost = HPBroadcastingScroll.findNearestOverSuperviewTree(in: superview)
+            scrollHost?.hp_addScrollDelegate(HPBroadcastingScrollHostDelegate(
+                id: ObjectIdentifier(self),
+                noteScroll: onScroll))
+        }
+        private func uninstall() {
+            let scrollHost = HPBroadcastingScroll.findNearestOverSuperviewTree(in: superview)
+            scrollHost?.hp_removeScrollDelegate(HPBroadcastingScrollHostDelegate(
+                id: ObjectIdentifier(self),
+                noteScroll: HP.noop))
+        }
+    }
+    
 }
-#endif
+

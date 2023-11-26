@@ -17,9 +17,10 @@ To Do
 -----
 - Make `HPLazyVList`.
     - No scroll view. This is just a fixed-sized view for certain data input.
-    - Designed to be used with contained in a scroll-view.
+    - Designed to be used as contained in a scroll-view.
     - Provides Viewport bounding box culling.
     - Provides container bounding box culling.
+    - Provides intrinsic size.
     - Homogeneous segment views. 
 - Make test suite.
     - Which collects call count to view-graph reconstruction (`body`) and checks certain call counts.

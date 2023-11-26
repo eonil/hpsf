@@ -5,8 +5,7 @@ import SwiftUI
 /// - Item view content is derived from source item element.
 /// - Source item element is `Hashable`. This view does not redraw items for same source element.
 ///   - Provide different key to redraw view.
-/// - Cell-views
-///
+@available(*, deprecated)
 public struct HPLazyListView<Source, CellContent: View>: View where Source: RandomAccessCollection, Source.Index == Int, Source.Element: Hashable {
     var spec: Spec
     struct Spec {
@@ -16,6 +15,7 @@ public struct HPLazyListView<Source, CellContent: View>: View where Source: Rand
     }
 }
 
+@available(*, deprecated)
 public extension HPLazyListView {
     init(data: Source, cellHeight: CGFloat, @ViewBuilder cellContent: @escaping (Source.Element) -> CellContent) {
         spec = Spec(data: data, cellHeight: cellHeight, cellContent: cellContent)

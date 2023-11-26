@@ -22,7 +22,15 @@ struct HPTradeProductListPage: View {
 //                    }
 //                    
 //                }
-                mainList(symbols: symbols)
+//                let listSize = CGSize(
+//                    width: 100,
+//                    height: 100 * CGFloat(symbols.count))
+                let listSize = CGSize(
+                    width: 100,
+                    height: 2000)
+                HPFixedSizeScrollView(contentSize: listSize) {
+                    mainList(symbols: symbols)
+                }
             }
         }
     }
@@ -35,7 +43,7 @@ struct HPTradeProductListPage: View {
     
     @ViewBuilder
     private func mainList<C>(symbols: C) -> some View where C: RandomAccessCollection, C.Element == HPPSwapSymbol, C.Index == Int {
-        HPLazyListView(data: symbols, cellHeight: 50) { symbol in
+        HPLazyVList(data: symbols, cellHeight: 50) { symbol in
             if let data = bridge.data.repo.market.pswapTable[symbol] {
                 let model = Cell.Model(code: data.symbol.code)
                 EquatableView(content: Cell(
